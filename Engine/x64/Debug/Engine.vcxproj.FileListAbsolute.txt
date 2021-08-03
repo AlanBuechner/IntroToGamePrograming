@@ -1,0 +1,2 @@
+C:\Users\abuechner\source\repos\Game\x64\Debug\Engine.pdb
+C:\Users\abuechner\source\repos\Game\Engine\x64\Debug\Engine.pdb
