@@ -1,25 +1,36 @@
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
+#include <Engine.h>
+
+class App : public Engine::Aplicaiton
+{
+protected:
+	virtual void OnCreate() 
+	{
+		m_Texture = Engine::Texture::Create();
+		m_Texture->Load("sf2.png");
+	}
+
+	virtual void OnUpdate() 
+	{
+		Engine::Renderer::BeginScene();
+		Engine::Renderer::Draw(m_Texture, { 0,0 }, { 1,1 }, 0.0f);
+		Engine::Renderer::EndScene();
+	}
+
+	Engine::Ref<Engine::Texture> m_Texture;
+};
 
 int main(int argc, char** argv)
 {
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
-	{ 
-		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl; 
-		return 1; 
-	}
-
-	SDL_Window* window = SDL_CreateWindow("GAT150", 100, 100, 800, 600, SDL_WINDOW_SHOWN); 
-	if (window == nullptr) 
-	{ 
-		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl; 
-		SDL_Quit(); 
-		return 1; 
-	}
 	
-	// wait for keyboard enter to exit
-	std::getchar();
+	App app;
+	app.Init();
+	app.Run();
 
-	SDL_Quit();
+	Engine::Texture texture;
+	texture.Load("sf2.png");
+	
 	return 0;
 }
