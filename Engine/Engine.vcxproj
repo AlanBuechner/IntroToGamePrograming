@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Math\Math.cpp" />
     <ClCompile Include="src\Math\Vector2.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
@@ -29,6 +30,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Core.h" />
+    <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Math\Math.h" />
     <ClInclude Include="src\Math\Transform.h" />
     <ClInclude Include="src\Math\Vector2.h" />

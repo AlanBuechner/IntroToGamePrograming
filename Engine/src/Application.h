@@ -2,7 +2,7 @@
 
 namespace Engine
 {
-	class Aplicaiton
+	class Applicaiton
 	{
 	public:
 

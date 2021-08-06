@@ -59,8 +59,8 @@ namespace Engine
 
 	void Renderer::Draw(Ref<Texture> texture, const Math::Vector2& pos, const Math::Vector2& scale, float angle)
 	{
-		SDL_Rect rect{(int)pos.x, (int)pos.y, (int)scale.x, (int)scale.y};
-		SDL_RenderCopy(s_Renderer, texture->GetTexture(), nullptr, &rect);
+		SDL_Rect dest{(int)pos.x, (int)pos.y, (int)scale.x, (int)scale.y};
+		SDL_RenderCopyEx(s_Renderer, texture->GetTexture(), nullptr, &dest, angle, nullptr, SDL_FLIP_NONE);
 	}
 
 }

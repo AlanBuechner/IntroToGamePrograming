@@ -1,16 +1,18 @@
 #include "Application.h"
 #include "Renderer\Renderer.h"
+#include "Input\Input.h"
 
 namespace Engine
 {
-	void Aplicaiton::Init()
+	void Applicaiton::Init()
 	{
 		Renderer::Init();
+		Input::Init();
 
 		OnCreate();
 	}
 
-	void Aplicaiton::Run()
+	void Applicaiton::Run()
 	{
 		SDL_Event e;
 		while (!m_Quit)
@@ -35,6 +37,7 @@ namespace Engine
 			}
 			}
 
+			Input::Update();
 			OnUpdate();
 		}
 
