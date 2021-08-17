@@ -24,4 +24,11 @@ namespace Engine
 		return std::make_shared<Texture>();
 	}
 
+	Ref<Texture> Texture::Create(const std::string& file)
+	{
+		Ref<Texture> texture = std::make_shared<Texture>();
+		texture->Load(file);
+		return texture;
+	}
+
 }

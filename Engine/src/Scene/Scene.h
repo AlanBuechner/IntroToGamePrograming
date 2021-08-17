@@ -13,11 +13,12 @@ namespace Engine
 	{
 	public:
 
-		template<typename T>
-		Ref<T> Instantiate()
+		template<typename T, class... _Ty>
+		Ref<T> Instantiate(_Ty&&... args)
 		{
-			m_Entitys.push_back(std::make_shared<T>());
+			m_Entitys.push_back(std::make_shared<T>(std::forward<_Ty>(args)...));
 			Ref<T> entity = std::dynamic_pointer_cast<T>(m_Entitys.back());
+			entity->m_Scene = this;
 			entity->OnCreate();
 			return entity;
 		}

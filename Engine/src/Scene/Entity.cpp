@@ -3,8 +3,23 @@
 
 namespace Engine
 {
-	void Drawable::Draw()
+	Entity::Entity(const Math::Transform& t) :
+		m_Transform(t)
+	{}
+
+	void Entity::Update(float dt)
 	{
-		Renderer::Draw(m_Texture, m_Transform);
+		for (auto& comp : m_Components)
+		{
+			comp->Update();
+		}
 	}
+
+	void Entity::Draw()
+	{
+		SpriteRendererComponent* sprite = GetComponent<SpriteRendererComponent>();
+		if(sprite)
+			Renderer::Draw(sprite->m_Texture, m_Transform);
+	}
+	
 }

@@ -14,6 +14,7 @@ namespace Engine
 		SDL_Texture* GetTexture() { return m_Texture; }
 
 		static Ref<Texture> Create();
+		static Ref<Texture> Create(const std::string& file);
 
 	private:
 		SDL_Texture* m_Texture = nullptr;

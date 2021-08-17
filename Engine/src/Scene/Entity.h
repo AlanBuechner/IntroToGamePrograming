@@ -2,6 +2,8 @@
 #include "Core.h"
 #include "Math\Math.h"
 #include "Renderer\Texture.h"
+#include "Component.h"
+#include <vector>
 
 namespace Engine
 {
@@ -13,22 +15,49 @@ namespace Engine
 	class Entity
 	{
 	public:
-		virtual void OnCreate() {}
-		virtual void Update(float dt) {}
-		virtual void Draw() {}
+		Entity() = default;
+		Entity(const Math::Transform& t);
 
-	protected:
+		virtual void OnCreate() {}
+		virtual void Update(float dt);
+		virtual void Draw();
+
+		template<typename T, class... _Ty>
+		T* AddComponent(_Ty&&... args)
+		{
+			if (HasComponent<T>())
+				return nullptr;
+
+			Scope<T> component = std::make_unique<T>(std::forward<_Ty>(args)...);
+			component->m_Entity = this;
+			m_Components.push_back(std::move(component));
+			m_Components.back()->OnCreate();
+			return dynamic_cast<T*>(m_Components.back().get());
+		}
+
+		template<typename T>
+		T* GetComponent()
+		{
+			T* component = nullptr;
+			for (auto& comp : m_Components)
+				if (component = dynamic_cast<T*>(comp.get()))
+					return component;
+			return nullptr;
+		}
+
+		template<typename T>
+		bool HasComponent()
+		{
+			return GetComponent<T>() != nullptr;
+		}
+
+	public:
 		Math::Transform m_Transform;
 
-		friend Scene;
-	};
-
-	class Drawable : public Entity
-	{
-	public:
-		virtual void Draw() override;
-
 	protected:
-		Ref<Texture> m_Texture;
+		Scene* m_Scene = nullptr;
+		std::vector<Scope<Component>> m_Components;
+
+		friend Scene;
 	};
 }

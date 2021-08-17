@@ -2,14 +2,14 @@
 
 void App::OnCreate()
 {
-	GetScene().Instantiate<Player>();
-
-	m_Font.Load("Roboto-Black.ttf", 16);
+	auto entity = GetScene().Instantiate<Engine::Entity>(Math::Transform{ { 100,100 },{ 200,150 }, 0.0f });
+	entity->AddComponent<Engine::SpriteRendererComponent>(Engine::Texture::Create("sf2.PNG"));
+	entity->AddComponent<PlayerComponent>();
+	
 }
 
 void App::OnUpdate()
 {
-
 	if (Engine::Input::GetButtonDown(SDL_SCANCODE_ESCAPE))
 		Quit();
 }
@@ -18,22 +18,15 @@ void App::OnDraw()
 {
 }
 
-// -------- Player
-void Player::OnCreate()
-{
-	m_Transform = { { 100,100 },{ 200,150 }, 0.0f };
-	m_Texture = Engine::Texture::Create();
-	m_Texture->Load("sf2.png");
-}
-
-void Player::Update(float dt)
+// player component
+void PlayerComponent::Update()
 {
 	if (Engine::Input::GetButtonDown(SDL_SCANCODE_W))
-		m_Transform.Position += {0.0f, -0.5f};
+		m_Entity->m_Transform.Position += {0.0f, -0.5f};
 	if (Engine::Input::GetButtonDown(SDL_SCANCODE_S))
-		m_Transform.Position += {0.0f, 0.5f};
+		m_Entity->m_Transform.Position += {0.0f, 0.5f};
 	if (Engine::Input::GetButtonDown(SDL_SCANCODE_A))
-		m_Transform.Position += {-0.5f, 0.0f};
+		m_Entity->m_Transform.Position += {-0.5f, 0.0f};
 	if (Engine::Input::GetButtonDown(SDL_SCANCODE_D))
-		m_Transform.Position += {0.5f, 0.0f};
+		m_Entity->m_Transform.Position += {0.5f, 0.0f};
 }

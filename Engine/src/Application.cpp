@@ -47,6 +47,7 @@ namespace Engine
 			}
 
 			Input::Update();
+
 			m_Scene.Update(1.0f);
 			OnUpdate();
 

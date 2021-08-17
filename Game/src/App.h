@@ -8,13 +8,9 @@ protected:
 
 	virtual void OnUpdate() override;
 	virtual void OnDraw() override;
-
-	Engine::Font m_Font;
 };
 
-class Player : public Engine::Drawable
+class PlayerComponent : public Engine::Component
 {
-public:
-	virtual void OnCreate() override;
-	virtual void Update(float dt) override;
+	virtual void Update() override;
 };

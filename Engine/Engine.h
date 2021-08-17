@@ -17,3 +17,8 @@
 
 // audio
 #include "src\Audio\Audio.h"
+
+// ECS
+#include "src\Scene\Scene.h"
+#include "src\Scene\Entity.h"
+#include "src\Scene\Component.h"
