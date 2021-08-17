@@ -20,22 +20,32 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Audio\Audio.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Math\Math.cpp" />
     <ClCompile Include="src\Math\Vector2.cpp" />
+    <ClCompile Include="src\Renderer\Color.cpp" />
+    <ClCompile Include="src\Renderer\Font.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Scene\Entity.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Audio\Audio.h" />
     <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Math\Math.h" />
     <ClInclude Include="src\Math\Transform.h" />
     <ClInclude Include="src\Math\Vector2.h" />
+    <ClInclude Include="src\Renderer\Color.h" />
+    <ClInclude Include="src\Renderer\Font.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
+    <ClInclude Include="src\Scene\Entity.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -107,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)vendor\FMOD\inc;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -123,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)vendor\FMOD\inc;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -139,7 +149,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)vendor\FMOD\inc;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -155,7 +165,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)vendor\FMOD\inc;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

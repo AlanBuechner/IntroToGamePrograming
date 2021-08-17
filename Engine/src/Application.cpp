@@ -1,18 +1,27 @@
 #include "Application.h"
 #include "Renderer\Renderer.h"
 #include "Input\Input.h"
+#include "Audio\Audio.h"
+
+Engine::Application* Engine::Application::s_Instance = nullptr;
 
 namespace Engine
 {
-	void Applicaiton::Init()
+	void Application::Init()
 	{
+		if (s_Instance != nullptr)
+			return;
+
+		s_Instance = this;
+
 		Renderer::Init();
 		Input::Init();
+		Audio::Init();
 
 		OnCreate();
 	}
 
-	void Applicaiton::Run()
+	void Application::Run()
 	{
 		SDL_Event e;
 		while (!m_Quit)
@@ -38,7 +47,13 @@ namespace Engine
 			}
 
 			Input::Update();
+			m_Scene.Update(1.0f);
 			OnUpdate();
+
+			Renderer::BeginScene();
+			m_Scene.Draw();
+			OnDraw();
+			Renderer::EndScene();
 		}
 
 		Renderer::Destroy();

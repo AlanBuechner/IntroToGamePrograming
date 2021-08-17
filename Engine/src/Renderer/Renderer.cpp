@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 
 SDL_Renderer* Engine::Renderer::s_Renderer;
 
@@ -31,6 +32,8 @@ namespace Engine
 			return;
 		}
 
+		TTF_Init();
+
 		s_Renderer = SDL_CreateRenderer(window, -1, 0);
 
 	}
@@ -38,6 +41,7 @@ namespace Engine
 	void Renderer::Destroy()
 	{
 		SDL_DestroyRenderer(s_Renderer);
+		TTF_Quit();
 		IMG_Quit();
 		SDL_Quit();
 	}
@@ -59,8 +63,30 @@ namespace Engine
 
 	void Renderer::Draw(Ref<Texture> texture, const Math::Vector2& pos, const Math::Vector2& scale, float angle)
 	{
-		SDL_Rect dest{(int)pos.x, (int)pos.y, (int)scale.x, (int)scale.y};
+		SDL_Rect dest{(int)pos.x - scale.x/2.0f, (int)pos.y - scale.y/2.0f, (int)scale.x, (int)scale.y};
 		SDL_RenderCopyEx(s_Renderer, texture->GetTexture(), nullptr, &dest, angle, nullptr, SDL_FLIP_NONE);
+	}
+
+	void Renderer::Draw(const std::string& text, const Font& font, const Color& color, const Math::Transform& transform)
+	{
+		uint8_t r, g, b;
+		r = (uint8_t)(color.r * 255.0f);
+		g = (uint8_t)(color.g * 255.0f);
+		b = (uint8_t)(color.b * 255.0f);
+
+		SDL_Surface* surface = TTF_RenderText_Solid(font.m_Font, text.c_str(), SDL_Color({ r, g, b, 255 }));
+		if (surface == nullptr)
+			std::cout << "TTF_RenderText_Solid Error: " << SDL_GetError() << std::endl; 
+	
+		SDL_Texture* texture = SDL_CreateTextureFromSurface(s_Renderer, surface);
+		SDL_FreeSurface(surface);
+
+		Math::Vector2 pos = transform.Position;
+		Math::Vector2 scale = transform.Scale;
+
+		SDL_Rect dest{ (int)pos.x - scale.x / 2.0f, (int)pos.y - scale.y / 2.0f, (int)scale.x, (int)scale.y };
+		SDL_RenderCopyEx(s_Renderer, texture, nullptr, &dest, transform.Rotation, nullptr, SDL_FLIP_NONE);
+
 	}
 
 }

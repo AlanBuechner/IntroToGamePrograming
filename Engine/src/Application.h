@@ -1,10 +1,15 @@
 #pragma once
+#include "Scene\Scene.h"
+#include "Scene\Entity.h"
 
 namespace Engine
 {
-	class Applicaiton
+	class Application
 	{
+		static Application* s_Instance;
 	public:
+		static Application* Get() { return s_Instance; }
+		Scene& GetScene() { return m_Scene; }
 
 		void Init();
 		void Run();
@@ -14,9 +19,12 @@ namespace Engine
 	protected:
 		virtual void OnCreate() {};
 		virtual void OnUpdate() {};
+		virtual void OnDraw() {};
 		virtual void OnDestroy() {};
 
 	private:
 		bool m_Quit = false;
+
+		Scene m_Scene;
 	};
 }
