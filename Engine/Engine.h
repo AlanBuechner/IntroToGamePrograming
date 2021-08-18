@@ -22,3 +22,6 @@
 #include "src\Scene\Scene.h"
 #include "src\Scene\Entity.h"
 #include "src\Scene\Component.h"
+
+// Time
+#include "src\Time.h"

@@ -7,6 +7,9 @@ namespace Math
 {
 	float lerp(float a, float b, float t);
 
+	float RadToDeg(float rad);
+	float DegToRad(float deg);
+
 	void SetRandomSeed(uint32_t seed);
 	float Random();
 	float RandomRange(float min, float max);

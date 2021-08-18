@@ -2,6 +2,7 @@
 #include "Renderer\Renderer.h"
 #include "Input\Input.h"
 #include "Audio\Audio.h"
+#include "Time.h"
 
 Engine::Application* Engine::Application::s_Instance = nullptr;
 
@@ -47,6 +48,7 @@ namespace Engine
 			}
 
 			Input::Update();
+			Time::UpdateDeltaTime();
 
 			m_Scene.Update(1.0f);
 			OnUpdate();

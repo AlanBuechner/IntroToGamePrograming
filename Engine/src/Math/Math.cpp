@@ -12,6 +12,10 @@ namespace Math
 		return a + t * (b - a);
 	}
 
+	float RadToDeg(float rad) { return rad * 180.0f / 3.14f; }
+
+	float DegToRad(float deg) { return deg * 3.14f / 180.0f; }
+
 	void SetRandomSeed(uint32_t seed)
 	{
 		
