@@ -19,6 +19,13 @@ namespace Engine
 		SDL_FreeSurface(surface);
 	}
 
+	Math::Vector2 Texture::GetDimentions()
+	{
+		SDL_Point point;
+		SDL_QueryTexture(m_Texture, nullptr, nullptr, &point.x, &point.y);
+		return { point.x, point.y };
+	}
+
 	Ref<Texture> Texture::Create()
 	{
 		return std::make_shared<Texture>();

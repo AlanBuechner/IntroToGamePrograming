@@ -6,6 +6,7 @@
 namespace Math
 {
 	float lerp(float a, float b, float t);
+	float alerp(float a, float b, float t);
 
 	float RadToDeg(float rad);
 	float DegToRad(float deg);

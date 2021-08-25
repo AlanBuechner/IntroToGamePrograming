@@ -1,8 +1,8 @@
 #include "Time.h"
 #include <chrono>
 
-double Engine::Time::m_DeltaTime;
-double Engine::Time::m_LastFrameTime;
+double Engine::Time::m_DeltaTime = 0.0f;
+double Engine::Time::m_LastFrameTime = Engine::Time::GetTime();
 
 namespace Engine
 {

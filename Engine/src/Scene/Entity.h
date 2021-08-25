@@ -19,8 +19,10 @@ namespace Engine
 		Entity(const Math::Transform& t);
 
 		virtual void OnCreate() {}
-		virtual void Update(float dt);
+		virtual void Update();
 		virtual void Draw();
+
+		virtual void OnCollision(Entity* e);
 
 		template<typename T, class... _Ty>
 		T* AddComponent(_Ty&&... args)

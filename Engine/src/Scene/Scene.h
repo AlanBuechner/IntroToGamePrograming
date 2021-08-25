@@ -23,9 +23,12 @@ namespace Engine
 			return entity;
 		}
 
-		void Update(float dt);
+		void Destroy(Entity* entity);
+
+		void Update();
 		void Draw();
 	private:
 		std::list<Ref<Entity>> m_Entitys;
+		std::list<std::list<Ref<Entity>>::const_iterator> m_ToDelete;
 	};
 }

@@ -14,6 +14,9 @@ namespace Engine
 		static void Init();
 		static void Destroy();
 
+		static int GetWidth() { return s_Width; }
+		static int GetHeight() { return s_Height; }
+
 		static void BeginScene();
 		static void EndScene();
 
@@ -26,5 +29,6 @@ namespace Engine
 
 	private:
 		static SDL_Renderer* s_Renderer;
+		static int s_Width, s_Height;
 	};
 }

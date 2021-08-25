@@ -12,6 +12,39 @@ namespace Math
 		return a + t * (b - a);
 	}
 
+	float alerp(float a, float b, float t)
+	{
+		float result;
+		float diff = b - a;
+		if (diff < -180.f)
+		{
+			// lerp upwards past 360
+			b += 360.f;
+			result = lerp(a, b, t);
+			if (result >= 360.f)
+			{
+				result -= 360.f;
+			}
+		}
+		else if (diff > 180.f)
+		{
+			// lerp downwards past 0
+			b -= 360.f;
+			result = lerp(a, b, t);
+			if (result < 0.f)
+			{
+				result += 360.f;
+			}
+		}
+		else
+		{
+			// straight lerp
+			result = lerp(a, b, t);
+		}
+
+		return result;
+	}
+
 	float RadToDeg(float rad) { return rad * 180.0f / 3.14f; }
 
 	float DegToRad(float deg) { return deg * 3.14f / 180.0f; }

@@ -7,7 +7,7 @@ namespace Engine
 		m_Transform(t)
 	{}
 
-	void Entity::Update(float dt)
+	void Entity::Update()
 	{
 		for (auto& comp : m_Components)
 		{
@@ -17,9 +17,17 @@ namespace Engine
 
 	void Entity::Draw()
 	{
-		SpriteRendererComponent* sprite = GetComponent<SpriteRendererComponent>();
+		auto sprite = GetComponent<SpriteRendererComponent>();
 		if(sprite)
 			Renderer::Draw(sprite->m_Texture, m_Transform);
+	}
+
+	void Entity::OnCollision(Entity* e)
+	{
+		for (auto& comp : m_Components)
+		{
+			comp->OnCollision(e);
+		}
 	}
 	
 }

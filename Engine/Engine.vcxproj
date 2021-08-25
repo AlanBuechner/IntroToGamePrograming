@@ -28,6 +28,7 @@
     <ClCompile Include="src\Renderer\Font.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Scene\Component.cpp" />
     <ClCompile Include="src\Scene\Entity.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Time.cpp" />

@@ -1,2 +1,6 @@
-﻿  Math.cpp
+﻿  Application.cpp
+  Component.cpp
+  Entity.cpp
+  Scene.cpp
+  Generating Code...
   Engine.vcxproj -> C:\Users\abuechner\source\repos\Game\x64\Debug\Engine.lib

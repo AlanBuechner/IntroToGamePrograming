@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "App.h"
+#include <memory>s
 
 int main(int argc, char** argv)
 {

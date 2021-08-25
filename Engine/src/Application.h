@@ -9,7 +9,7 @@ namespace Engine
 		static Application* s_Instance;
 	public:
 		static Application* Get() { return s_Instance; }
-		Scene& GetScene() { return m_Scene; }
+		static Scene& GetScene() { return s_Instance->m_Scene; }
 
 		void Init();
 		void Run();

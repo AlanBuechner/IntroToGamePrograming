@@ -50,7 +50,7 @@ namespace Engine
 			Input::Update();
 			Time::UpdateDeltaTime();
 
-			m_Scene.Update(1.0f);
+			m_Scene.Update();
 			OnUpdate();
 
 			Renderer::BeginScene();

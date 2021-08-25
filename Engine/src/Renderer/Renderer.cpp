@@ -6,15 +6,13 @@
 #include <SDL_ttf.h>
 
 SDL_Renderer* Engine::Renderer::s_Renderer;
+int Engine::Renderer::s_Width = 800;
+int Engine::Renderer::s_Height = 600;
 
 namespace Engine
 {
 	void Renderer::Init()
 	{
-
-		int width = 800;
-		int height = 600;
-
 		if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		{
 			std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
@@ -23,7 +21,7 @@ namespace Engine
 
 		IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
-		SDL_Window* window = SDL_CreateWindow("GAT150", 100, 100, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+		SDL_Window* window = SDL_CreateWindow("GAT150", 100, 100, s_Width, s_Height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 		if (window == nullptr)
 		{
 			std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
@@ -63,8 +61,13 @@ namespace Engine
 
 	void Renderer::Draw(Ref<Texture> texture, const Math::Vector2& pos, const Math::Vector2& scale, float angle)
 	{
+		Texture::Atlis atlis = texture->m_Atlis;
+		Math::Vector2 size = texture->GetDimentions();
+		int width = size.x / atlis.Cols;
+		int height = size.y / atlis.Rows;
+		SDL_Rect src{ (atlis.index % atlis.Cols) * width, ((int)(atlis.index / atlis.Rows)) * height, width, height };
 		SDL_Rect dest{(int)pos.x - scale.x/2.0f, (int)pos.y - scale.y/2.0f, (int)scale.x, (int)scale.y};
-		SDL_RenderCopyEx(s_Renderer, texture->GetTexture(), nullptr, &dest, angle, nullptr, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(s_Renderer, texture->GetTexture(), &src, &dest, angle, nullptr, SDL_FLIP_NONE);
 	}
 
 	void Renderer::Draw(const std::string& text, const Font& font, const Color& color, const Math::Transform& transform)
