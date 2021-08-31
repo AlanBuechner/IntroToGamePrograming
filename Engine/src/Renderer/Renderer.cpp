@@ -63,10 +63,10 @@ namespace Engine
 	{
 		Texture::Atlis atlis = texture->m_Atlis;
 		Math::Vector2 size = texture->GetDimentions();
-		int width = size.x / atlis.Cols;
-		int height = size.y / atlis.Rows;
-		SDL_Rect src{ (atlis.index % atlis.Cols) * width, ((int)(atlis.index / atlis.Rows)) * height, width, height };
-		SDL_Rect dest{(int)pos.x - scale.x/2.0f, (int)pos.y - scale.y/2.0f, (int)scale.x, (int)scale.y};
+		int width = (int)(size.x / atlis.Cols);
+		int height = (int)(size.y / atlis.Rows);
+		SDL_Rect src{ (atlis.Index % atlis.Cols) * width, (atlis.Index / atlis.Cols) * height, width, height };
+		SDL_Rect dest{(int)(pos.x - scale.x/2.0f), (int)(pos.y - scale.y/2.0f), (int)scale.x, (int)scale.y};
 		SDL_RenderCopyEx(s_Renderer, texture->GetTexture(), &src, &dest, angle, nullptr, SDL_FLIP_NONE);
 	}
 
@@ -87,7 +87,7 @@ namespace Engine
 		Math::Vector2 pos = transform.Position;
 		Math::Vector2 scale = transform.Scale;
 
-		SDL_Rect dest{ (int)pos.x - scale.x / 2.0f, (int)pos.y - scale.y / 2.0f, (int)scale.x, (int)scale.y };
+		SDL_Rect dest{ (int)(pos.x - scale.x/2.0f), (int)(pos.y - scale.y/2.0f), (int)scale.x, (int)scale.y };
 		SDL_RenderCopyEx(s_Renderer, texture, nullptr, &dest, transform.Rotation, nullptr, SDL_FLIP_NONE);
 
 	}

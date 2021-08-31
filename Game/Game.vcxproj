@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)Engine;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)vendor\rapidjson\include;$(SolutionDir)vendor\FMOD\inc;$(SolutionDir)Engine;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)Engine;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)vendor\rapidjson\include;$(SolutionDir)vendor\FMOD\inc;$(SolutionDir)Engine;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)Engine;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)vendor\rapidjson\include;$(SolutionDir)vendor\FMOD\inc;$(SolutionDir)Engine;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)Engine;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(SolutionDir)vendor\SDL\include;$(SolutionDir)vendor\SDL_Image\include;$(SolutionDir)vendor\SDL2_ttf\include;$(SolutionDir)vendor\rapidjson\include;$(SolutionDir)vendor\FMOD\inc;$(SolutionDir)Engine;$(SolutionDir)Engine\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

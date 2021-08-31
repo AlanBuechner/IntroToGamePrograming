@@ -13,7 +13,7 @@ namespace Engine
 		struct Atlis
 		{
 			int Cols = 1, Rows = 1;
-			int index = 0;
+			int Index = 0;
 		};
 
 		void Load(const std::string& file);

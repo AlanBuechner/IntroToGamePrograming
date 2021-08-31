@@ -19,6 +19,8 @@ namespace Engine
 		Input::Init();
 		Audio::Init();
 
+		Audio::PlayAudio("music");
+
 		OnCreate();
 	}
 
@@ -47,8 +49,10 @@ namespace Engine
 			}
 			}
 
-			Input::Update();
 			Time::UpdateDeltaTime();
+
+			Input::Update();
+			Audio::Update();
 
 			m_Scene.Update();
 			OnUpdate();
@@ -60,6 +64,7 @@ namespace Engine
 		}
 
 		Renderer::Destroy();
+		Audio::Destroy();
 		OnDestroy();
 	}
 

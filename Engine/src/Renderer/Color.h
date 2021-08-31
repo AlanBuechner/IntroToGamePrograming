@@ -8,6 +8,7 @@ namespace Engine
 		Color() = default;
 		Color(float r, float g, float b);
 
+		float& operator [] (size_t index) { return (&r)[index]; }
 		Color operator+(const Color& o) { return Color{ r + o.r, g + o.g, b + o.b }; }
 		Color operator-(const Color& o) { return Color{ r - o.r, g - o.g, b - o.b }; }
 		Color operator*(const Color& o) { return Color{ r * o.r, g * o.g, b * o.b }; }

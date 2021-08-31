@@ -22,6 +22,7 @@
 #include "src\Scene\Scene.h"
 #include "src\Scene\Entity.h"
 #include "src\Scene\Component.h"
+#include "src\Scene\SceneSerializer.h"
 
 // Time
 #include "src\Time.h"

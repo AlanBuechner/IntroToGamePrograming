@@ -17,6 +17,7 @@ namespace Engine
 	public:
 		Entity() = default;
 		Entity(const Math::Transform& t);
+		Entity(const std::string& tag, const Math::Transform& t);
 
 		virtual void OnCreate() {}
 		virtual void Update();
@@ -58,6 +59,7 @@ namespace Engine
 
 	protected:
 		Scene* m_Scene = nullptr;
+		std::string m_Tag;
 		std::vector<Scope<Component>> m_Components;
 
 		friend Scene;

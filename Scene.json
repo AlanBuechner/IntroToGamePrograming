@@ -1,0 +1,56 @@
+{
+  "Entitys": [
+    {
+      "Tag": "player",
+      "Position": [ 400, 100 ],
+      "Scale": [ 50, 50 ],
+      "Rotation": 0.0,
+      "Components": [
+        {
+          "Type": "SpriteRendererComponent",
+          "Texture": "sf2.png",
+          "Rows": 1,
+          "Cols": 1,
+          "Index": 0
+        },
+        {
+          "Type": "CircleColliderComponent",
+          "Radius": 1.0
+        },
+        {
+          "Type": "PlayerComponent",
+          "Speed": 300,
+          "RotationSpeed": 270,
+          "FireRate": 0.5
+        }
+      ]
+    },
+    {
+      "Tag": "coin",
+      "Position": [ 400, 400 ],
+      "Scale": [ 30, 30 ],
+      "Rotation": 0.0,
+      "Components": [
+        {
+          "Type": "SpriteRendererComponent",
+          "Texture": "coin.png",
+          "Rows": 1,
+          "Cols": 8,
+          "Index": 0
+        },
+        {
+          "Type": "AnimationComponent",
+          "FrameTime": 0.1,
+          "Frames": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+        },
+        {
+          "Type": "CircleColliderComponent",
+          "Radius": 1.0
+        },
+        {
+          "Type": "PickupComponent"
+        }
+      ]
+    }
+  ]
+}

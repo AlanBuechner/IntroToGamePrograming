@@ -1,0 +1,16 @@
+{
+  "Audio": [
+    {
+      "Name": "music",
+      "File": "music.wav"
+    },
+    {
+      "Name": "coin",
+      "File": "coin.wav"
+    },
+    {
+      "Name": "hurt",
+      "File": "hurt.wav"
+    }
+  ]
+}
