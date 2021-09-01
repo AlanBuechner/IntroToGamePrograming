@@ -6,8 +6,8 @@
 #include <SDL_ttf.h>
 
 SDL_Renderer* Engine::Renderer::s_Renderer;
-int Engine::Renderer::s_Width = 800;
-int Engine::Renderer::s_Height = 600;
+int Engine::Renderer::s_Width = 416;
+int Engine::Renderer::s_Height = 720;
 
 namespace Engine
 {
@@ -21,7 +21,7 @@ namespace Engine
 
 		IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
-		SDL_Window* window = SDL_CreateWindow("GAT150", 100, 100, s_Width, s_Height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+		SDL_Window* window = SDL_CreateWindow("Donut Cat", 100, 100, s_Width, s_Height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 		if (window == nullptr)
 		{
 			std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
@@ -54,18 +54,18 @@ namespace Engine
 		SDL_RenderClear(s_Renderer);
 	}
 
-	void Renderer::Draw(Ref<Texture> texture, const Math::Transform& transform)
+	void Renderer::Draw(Ref<Texture> texture, const Math::Transform& transform, int index)
 	{
-		Draw(texture, transform.Position, transform.Scale, transform.Rotation);
+		Draw(texture, transform.Position, transform.Scale, transform.Rotation, index);
 	}
 
-	void Renderer::Draw(Ref<Texture> texture, const Math::Vector2& pos, const Math::Vector2& scale, float angle)
+	void Renderer::Draw(Ref<Texture> texture, const Math::Vector2& pos, const Math::Vector2& scale, float angle, int index)
 	{
 		Texture::Atlis atlis = texture->m_Atlis;
 		Math::Vector2 size = texture->GetDimentions();
 		int width = (int)(size.x / atlis.Cols);
 		int height = (int)(size.y / atlis.Rows);
-		SDL_Rect src{ (atlis.Index % atlis.Cols) * width, (atlis.Index / atlis.Cols) * height, width, height };
+		SDL_Rect src{ (index % atlis.Cols) * width, (index / atlis.Cols) * height, width, height };
 		SDL_Rect dest{(int)(pos.x - scale.x/2.0f), (int)(pos.y - scale.y/2.0f), (int)scale.x, (int)scale.y};
 		SDL_RenderCopyEx(s_Renderer, texture->GetTexture(), &src, &dest, angle, nullptr, SDL_FLIP_NONE);
 	}

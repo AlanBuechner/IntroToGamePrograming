@@ -7,6 +7,8 @@
 #include <varargs.h>
 #include <vector>
 
+#define CLONE(name) virtual Scope<Component> Clone() override { return std::make_unique<name>(*this); }
+
 namespace Engine
 {
 	class Entity;
@@ -17,6 +19,8 @@ namespace Engine
 	class Component
 	{
 	public:
+		virtual Scope<Component> Clone() = 0;
+
 		virtual void OnCreate() {}
 		virtual void Update() {}
 		virtual void OnCollision(Entity* e) {}
@@ -31,6 +35,8 @@ namespace Engine
 	class SpriteRendererComponent : public Component
 	{
 	public:
+		CLONE(SpriteRendererComponent);
+
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(Ref<Texture> texture) :
 			m_Texture(texture)
@@ -38,11 +44,13 @@ namespace Engine
 
 	public:
 		Ref<Texture> m_Texture;
+		int m_Index = 0;
 	};
 
 	class TextRendererComponent : public Component
 	{
 	public:
+		CLONE(TextRendererComponent);
 		TextRendererComponent() = default;
 		TextRendererComponent(const std::string& text) :
 			m_Text(text)
@@ -57,6 +65,7 @@ namespace Engine
 	class CircleColliderComponent : public Component
 	{
 	public:
+		CLONE(CircleColliderComponent);
 		CircleColliderComponent() = default;
 		CircleColliderComponent(float r) :
 			m_Radius(r)
@@ -69,6 +78,7 @@ namespace Engine
 	class AnimationComponent : public Component
 	{
 	public:
+		CLONE(AnimationComponent);
 		AnimationComponent() = default;
 		AnimationComponent(float frameTime, std::vector<int> frames) :
 			m_FrameTime(frameTime), m_Frames(frames)
@@ -87,60 +97,50 @@ namespace Engine
 
 	class PlayerComponent : public Component
 	{
-		static PlayerComponent* s_Instance;
-
 	public:
-		static PlayerComponent* Get() { return s_Instance; }
+		CLONE(PlayerComponent);
 
 	private:
-		virtual void OnCreate() override;
 		virtual void Update() override;
 		virtual void OnCollision(Entity* e) override;
 
-	public:
-		float m_Speed = 300.0f;
-		float m_RotSpeed = 270.0f;
-
-		float m_FireRate = 0.5f;
-
 	private:
-		float m_FireTimer = 0.0f;
+		float m_DownSpeed = 0.0f;
 	};
 
-	class BulletComponent : public Component
+	class SpikeComponent : public Component
 	{
-	private:
-		virtual void OnCreate() override;
-		virtual void Update() override;
-
-	private:
-		Math::Vector2 m_Direction;
-		float m_Speed = 500.0f;
-	};
-
-	class EnemyComponent : public Component
-	{
-	private:
-		virtual void OnCreate() override;
-		virtual void Update() override;
-		virtual void OnCollision(Entity* e) override;
-
 	public:
-		static void Spawn();
+		CLONE(SpikeComponent);
+	private:
+		virtual void Update() override;
 
 	public:
 		float m_Speed = 100.0f;
-
-	private:
-		Entity* m_Target = nullptr;
 	};
 
 	class PickupComponent : public Component
 	{
 	public:
+		CLONE(PickupComponent);
+		virtual void Update() override;
 		virtual void OnCollision(Entity* e) override;
+
+	public:
+		float m_Speed = 100.0f;
 	};
 
+	class ManegerComponent : public Component
+	{
+	public:
+		CLONE(ManegerComponent);
+		virtual void Update() override;
 
+	public:
+		float m_SpawnRate;
+
+	private:
+		float m_SpawnTimer = 0.0f;
+	};
 
 }

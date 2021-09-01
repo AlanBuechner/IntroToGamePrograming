@@ -1,7 +1,2 @@
-﻿  Application.cpp
-  Component.cpp
-  Entity.cpp
-  Scene.cpp
-  SceneSerializer.cpp
-  Generating Code...
+﻿  Scene.cpp
   Engine.vcxproj -> C:\Users\abuechner\source\repos\Game\x64\Debug\Engine.lib

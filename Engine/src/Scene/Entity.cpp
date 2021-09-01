@@ -11,6 +11,22 @@ namespace Engine
 		m_Tag(tag), m_Transform(t)
 	{}
 
+	Entity::Entity(const Entity & other)
+	{
+		m_Scene = other.m_Scene;
+		m_Tag = other.m_Tag;
+		m_Transform = other.m_Transform;
+
+		m_Components.reserve(other.m_Components.size());
+		for (auto& c : other.m_Components)
+		{
+			m_Components.push_back(c->Clone());
+			auto& comp = m_Components.back();
+			comp->m_Entity = this;
+			comp->OnCreate();
+		}
+	}
+
 	void Entity::Update()
 	{
 		for (auto& comp : m_Components)
@@ -23,7 +39,7 @@ namespace Engine
 	{
 		auto sprite = GetComponent<SpriteRendererComponent>();
 		if(sprite)
-			Renderer::Draw(sprite->m_Texture, m_Transform);
+			Renderer::Draw(sprite->m_Texture, m_Transform, sprite->m_Index);
 
 		auto text = GetComponent<TextRendererComponent>();
 		if (text)

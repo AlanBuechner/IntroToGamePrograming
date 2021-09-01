@@ -19,6 +19,8 @@ namespace Engine
 		Entity(const Math::Transform& t);
 		Entity(const std::string& tag, const Math::Transform& t);
 
+		Entity(const Entity& other);
+
 		virtual void OnCreate() {}
 		virtual void Update();
 		virtual void Draw();

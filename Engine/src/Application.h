@@ -25,6 +25,6 @@ namespace Engine
 	private:
 		bool m_Quit = false;
 
-		Scene m_Scene;
+		Scene m_Scene;\
 	};
 }

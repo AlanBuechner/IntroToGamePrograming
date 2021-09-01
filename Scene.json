@@ -1,27 +1,40 @@
 {
   "Entitys": [
     {
+      "Tag": "background",
+      "Position": [ 208, 360 ],
+      "Rotation": 0.0,
+      "Scale": [ 416, 720 ],
+      "Components": [
+        {
+          "Type": "SpriteRendererComponent",
+          "Texture": "Background.png"
+        },
+        {
+          "Type": "ManegerComponent",
+          "SpawnRate": 0.5
+        }
+      ]
+    },
+    {
       "Tag": "player",
-      "Position": [ 400, 100 ],
-      "Scale": [ 50, 50 ],
+      "Position": [ 245, 500 ],
+      "Scale": [ 40, 50 ],
       "Rotation": 0.0,
       "Components": [
         {
           "Type": "SpriteRendererComponent",
-          "Texture": "sf2.png",
+          "Texture": "Cat.png",
           "Rows": 1,
-          "Cols": 1,
-          "Index": 0
+          "Cols": 2,
+          "Index": 1
         },
         {
           "Type": "CircleColliderComponent",
-          "Radius": 1.0
+          "Radius": 0.5
         },
         {
-          "Type": "PlayerComponent",
-          "Speed": 300,
-          "RotationSpeed": 270,
-          "FireRate": 0.5
+          "Type": "PlayerComponent"
         }
       ]
     },
@@ -30,6 +43,7 @@
       "Position": [ 400, 400 ],
       "Scale": [ 30, 30 ],
       "Rotation": 0.0,
+      "Prefab": true,
       "Components": [
         {
           "Type": "SpriteRendererComponent",
@@ -48,7 +62,32 @@
           "Radius": 1.0
         },
         {
-          "Type": "PickupComponent"
+          "Type": "PickupComponent",
+          "Speed": 300.0
+        }
+      ]
+    },
+    {
+      "Tag": "spike",
+      "Position": [ 400, 400 ],
+      "Scale": [ 50, 30 ],
+      "Rotation": 0.0,
+      "Prefab": true,
+      "Components": [
+        {
+          "Type": "SpriteRendererComponent",
+          "Texture": "Spike.png",
+          "Rows": 1,
+          "Cols": 2,
+          "Index": 0
+        },
+        {
+          "Type": "CircleColliderComponent",
+          "Radius": 1.0
+        },
+        {
+          "Type": "SpikeComponent",
+          "Speed": 300.0
         }
       ]
     }

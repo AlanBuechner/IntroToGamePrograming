@@ -6,6 +6,9 @@
 #include "Input\Input.h"
 #include "Renderer\Renderer.h"
 #include "Audio\Audio.h"
+#include "SceneSerializer.h"
+
+#include <iostream>
 
 namespace Engine
 {
@@ -27,7 +30,7 @@ namespace Engine
 				m_Frame = 0;
 
 			auto sprite = m_Entity->GetComponent<SpriteRendererComponent>();
-			sprite->m_Texture->m_Atlis.Index = m_Frames[m_Frame];
+			sprite->m_Index = m_Frames[m_Frame];
 		}
 	}
 
@@ -35,120 +38,102 @@ namespace Engine
 
 
 	// player component
-	PlayerComponent* PlayerComponent::s_Instance;
-
-	void PlayerComponent::OnCreate()
-	{
-		if (s_Instance != nullptr)
-		{
-			Application::GetScene().Destroy(m_Entity);
-			return;
-		}
-		s_Instance = this;
-	}
-
 	void PlayerComponent::Update()
 	{
-		float dt = Time::GetDeltaTime();
-
-		Math::Transform& t = Transform();
-		Math::Vector2 dir = Math::Vector2::Rotate({ 1, 0 }, Math::DegToRad(t.Rotation)) * m_Speed * dt;
-		if (Input::GetButtonDown(SDL_SCANCODE_W))
-			t.Position += dir;
-		if (Input::GetButtonDown(SDL_SCANCODE_S))
-			t.Position -= dir;
-		if (Input::GetButtonDown(SDL_SCANCODE_A))
-			t.Rotation -= m_RotSpeed * dt;
-		if (Input::GetButtonDown(SDL_SCANCODE_D))
-			t.Rotation += m_RotSpeed * dt;
-
-		m_FireTimer += dt;
-		if (Input::GetButtonDown(SDL_SCANCODE_SPACE) && m_FireTimer >= m_FireRate)
+		if (Transform().Position.y > Renderer::GetHeight())
 		{
-			m_FireTimer = 0;
-			auto bullet = Application::GetScene().Instantiate<Entity>(t);
-			bullet->AddComponent<BulletComponent>();
-			bullet->AddComponent<CircleColliderComponent>();
+			Application::GetScene().Load("Scene.json");
+		}
+
+		if (m_DownSpeed != 0) 
+		{
+			Transform().Position.y += m_DownSpeed * Time::GetDeltaTime();
+			return;
+		}
+
+		if (Input::GetButtonPressed(SDL_SCANCODE_SPACE))
+		{
+			if (Transform().Position.x == 180) 
+				Transform().Position.x = 245;
+			else if (Transform().Position.x == 245)
+				Transform().Position.x = 180;
+
+			int& index =  m_Entity->GetComponent<SpriteRendererComponent>()->m_Index;
+			if (index == 0)
+				index = 1;
+			else if (index == 1)
+				index = 0;
+
 		}
 	}
 
 	void PlayerComponent::OnCollision(Entity* e)
 	{
-		if (e->HasComponent<EnemyComponent>())
+		if (e->HasComponent<SpikeComponent>())
 		{
-			// game end
+			std::cout << "GameOver!!!" << std::endl;
+			std::cout << Transform().Position.y;
+			m_DownSpeed = e->GetComponent<SpikeComponent>()->m_Speed;
 		}
 	}
-
-
-
-	// Bullet Component
-	void BulletComponent::OnCreate()
-	{
-		m_Direction = Math::Vector2::Rotate({ 1,0 }, Math::DegToRad(Transform().Rotation));
-		m_Entity->AddComponent<SpriteRendererComponent>(Texture::Create("sf2.PNG"));
-	}
-
-	void BulletComponent::Update()
-	{
-		Transform().Position += m_Direction * m_Speed * Time::GetDeltaTime();
-
-		if (Transform().Position.x < 0 || Transform().Position.x > Renderer::GetWidth() ||
-			Transform().Position.y < 0 || Transform().Position.y > Renderer::GetHeight())
-		{
-			Application::GetScene().Destroy(m_Entity);
-		}
-	}
-
-
 
 	// Enemy Component
-	void EnemyComponent::OnCreate()
+	void SpikeComponent::Update()
 	{
-		m_Target = PlayerComponent::Get()->m_Entity;
-	}
-
-	void EnemyComponent::Update()
-	{
-		Math::Transform& t = Transform();
 		float dt = Time::GetDeltaTime();
-		Math::Vector2 dirToPlayer = (m_Target->m_Transform.Position - t.Position).Normalized();
-		float angle = Math::RadToDeg(atan2(dirToPlayer.y, dirToPlayer.x));
-		t.Rotation = Math::alerp(t.Rotation, angle, dt);
-
-		t.Position += dirToPlayer * m_Speed * dt;
-	}
-
-	void EnemyComponent::OnCollision(Entity* e)
-	{
-		if (e->HasComponent<PlayerComponent>() || e->HasComponent<BulletComponent>())
-		{
-			Application::GetScene().Destroy(m_Entity);
-			//Application::GetScene().Destroy(e);
-
-			Spawn();
-		}
-	}
-
-	void EnemyComponent::Spawn()
-	{
-		int width = Renderer::GetWidth();
-		int height = Renderer::GetHeight();
-		Math::Vector2 pos = { Math::RandomIntRange(0, width), Math::RandomIntRange(0, height) };
-
-		auto enemy = Application::GetScene().Instantiate<Entity>(Math::Transform{ pos, { 50,50 }, 0.0f });
-		enemy->AddComponent<SpriteRendererComponent>(Texture::Create("sf2.PNG"));
-		enemy->AddComponent<CircleColliderComponent>();
-		enemy->AddComponent<EnemyComponent>();
+		Transform().Position.y += m_Speed * dt;
 	}
 	
+
 	// PickupComponent
+	void PickupComponent::Update()
+	{
+		float dt = Time::GetDeltaTime();
+		Transform().Position.y += m_Speed * dt;
+	}
+
 	void PickupComponent::OnCollision(Entity* e)
 	{
 		if (e->GetComponent<PlayerComponent>())
 		{
 			Application::GetScene().Destroy(m_Entity);
 			Audio::PlayAudio("coin");
+		}
+	}
+
+	// ManegerComponent
+	void ManegerComponent::Update()
+	{
+		m_SpawnTimer += Time::GetDeltaTime();
+		if (m_SpawnTimer >= m_SpawnRate)
+		{
+			Scene& scene = Application::GetScene();
+
+			m_SpawnTimer = 0.0f;
+
+			float r = Math::Random();
+			if (r > 0.3333f) {
+
+				Ref<Entity> entity;
+				if (Math::Random() > 0.75f)
+					entity = scene.Instantiate<Entity>(*scene.GetPrefab("coin").get());
+				else
+					entity = scene.Instantiate<Entity>(*scene.GetPrefab("spike").get());
+
+
+				Math::Transform& t = entity->m_Transform;
+				auto sprite = entity->GetComponent<SpriteRendererComponent>();
+
+				t.Position.y = -10.0f;
+				if (r > 0.6666f) {
+					t.Position.x = 180;
+					sprite->m_Index = 1;
+				}
+				else {
+					t.Position.x = 245;
+					sprite->m_Index = 0;
+				}
+			}
 		}
 	}
 

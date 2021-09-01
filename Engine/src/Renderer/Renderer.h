@@ -20,8 +20,8 @@ namespace Engine
 		static void BeginScene();
 		static void EndScene();
 
-		static void Draw(Ref<Texture> texutre, const Math::Transform& transform);
-		static void Draw(Ref<Texture> texture, const Math::Vector2& pos, const Math::Vector2& scale, float angle);
+		static void Draw(Ref<Texture> texutre, const Math::Transform& transform, int index = 0);
+		static void Draw(Ref<Texture> texture, const Math::Vector2& pos, const Math::Vector2& scale, float angle, int index = 0);
 		
 		static void Draw(const std::string& text, const Font& font, const Color& color, const Math::Transform& transform);
 
